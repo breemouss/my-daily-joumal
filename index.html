@@ -390,7 +390,14 @@
 
         function convertUTCToLocal(utcDateString) {
             const date = new Date(utcDateString); // Tạo đối tượng Date từ chuỗi UTC
-            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString(); // Chuyển sang định dạng của máy khách
+
+            // Lấy ngày, tháng, năm từ đối tượng Date
+            const day = date.getDate().toString().padStart(2, '0'); // Đảm bảo 2 chữ số
+            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Tháng bắt đầu từ 0
+            const year = date.getFullYear();
+
+            // Trả về định dạng dd/mm/yyyy
+            return `${day}/${month}/${year}`;
         }
 
         // Lấy nhật ký khi tải trang
