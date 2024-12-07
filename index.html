@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Daily Journal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Island+Moments&display=swap" rel="stylesheet">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Island Moments", cursive;
+            background: url('https://www.vietnamworks.com/hrinsider/wp-content/uploads/2023/12/hay-vung-tin-vao-nhung-uoc-mong-ban-da-gui-den-vu-tru.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .journal-container {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: row;
+            /* Arrange horizontally */
+            justify-content: space-between;
+            padding: 30px;
+            width: 100%;
+            align-items: flex-start;
+            opacity: 0.8;
+        }
+
+        h1 {
+            font-family: "Island Moments", cursive;
+            color: #4CAF50;
+            font-size: 4em;
+            margin-right: 30px;
+            white-space: nowrap;
+            /* Prevent line breaks */
+        }
+
+        textarea {
+            width: 100%;
+            height: 800px;
+            padding: 20px;
+            font-size: 30px;
+            line-height: 1.2;
+            font-family: 'Island Moments', cursive;
+
+            background-color: rgba(255, 250, 240, 0.9);
+            border: none;
+            outline: none;
+            resize: none;
+            border-radius: 15px;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            -webkit-user-modify: read-write-plaintext-only;
+
+        }
+
+
+
+        textarea::placeholder {
+            font-style: italic;
+            color: #aaa;
+        }
+
+        /* Custom scroll bar */
+        textarea::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        textarea::-webkit-scrollbar-track {
+            background: linear-gradient(to bottom, #fbe9e7, #ffccbc);
+            border-radius: 10px;
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #ffc1e3, #ffe4e1);
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #ffb4d9, #ffdada);
+        }
+
+        .journal-header {
+            width: 260px;
+            /* Giới hạn chiều rộng của thẻ div */
+            word-wrap: break-word;
+            /* Đảm bảo từ dài tự động xuống dòng */
+            margin: 0 auto;
+            /* Căn giữa nếu cần */
+            text-align: center;
+            /* Căn chữ giữa */
+        }
+
+        .journal-header h1 {
+            font-family: 'Island Moments', cursive;
+            font-size: 3em;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .journal-header p {
+            font-family: 'Island Moments', cursive;
+            font-size: 1.5em;
+            line-height: 1.5em;
+            color: #6a040f;
+        }
+
+        .journal-all {
+            width: 100%;
+            height: 800px;
+            padding: 10px;
+            overflow: auto;
+            font-size: 30px;
+        }
+
+        /* Custom scroll bar */
+        .journal-all::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .journal-all::-webkit-scrollbar-track {
+            background: linear-gradient(to bottom, #fbe9e7, #ffccbc);
+            border-radius: 10px;
+        }
+
+        .journal-all::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #ffc1e3, #ffe4e1);
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .journal-all::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #ffb4d9, #ffdada);
+        }
+
+        button {
+            background: linear-gradient(90deg, #1e90ff, #6a5acd);
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #6a5acd, #1e90ff);
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(-5px);
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background-color: rgba(255, 250, 240, 0.9);
+            /* Màu nền nhẹ nhàng */
+            border-radius: 12px;
+            /* Bo góc mượt hơn */
+            padding: 20px;
+            /* Tăng khoảng cách bên trong */
+            margin: 15px 0;
+            /* Khoảng cách giữa các thẻ */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* Bóng đổ nhẹ */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Hiệu ứng chuyển mượt */
+            overflow: hidden;
+            /* Cắt gọn nếu nội dung tràn */
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            /* Thẻ nhảy nhẹ lên trên */
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            /* Tăng bóng đổ khi hover */
+        }
+
+        .card h3 {
+            margin: 0 0 15px;
+            /* Khoảng cách dưới tiêu đề */
+            font-size: 28px;
+            /* Font size vừa phải */
+            color: #2c3e50;
+            /* Màu chữ đậm, hiện đại */
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            /* Hiệu ứng đổ bóng nhẹ cho tiêu đề */
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 22px;
+            /* Font size dễ đọc */
+            color: #34495e;
+            /* Màu chữ đậm nhưng không quá tối */
+            line-height: 1.6;
+            /* Giãn dòng để dễ đọc */
+            white-space: pre-line;
+            /* Giữ nguyên xuống dòng */
+        }
+
+        .card:hover p {
+            color: #2c3e50;
+            /* Thay đổi màu chữ khi hover */
+        }
+
+        .card:hover h3 {
+            color: #e67e22;
+            /* Thay đổi màu tiêu đề khi hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="journal-container">
+        <div class="journal-header">
+            <h1>My Journal</h1>
+            <p>Mỗi ngày là một trang giấy trắng, đang chờ đợi những câu chuyện mà chúng ta chọn để viết nên. Có những
+                trang tràn ngập tiếng cười, có những trang đẫm nước mắt, nhưng mỗi trang đều mang dấu ấn riêng của chúng
+                ta. Hãy để cuốn nhật ký này trở thành không gian an toàn của bạn—một nơi để ghi lại những suy nghĩ, ước
+                mơ và cảm xúc của mình. Hãy viết một cách tự do, không phán xét, và để những dòng chữ nhắc nhở bạn về vẻ
+                đẹp trong hành trình của mình, dù con đường có thể bất định đến đâu.</p>
+            <button id="saveButton" onclick="saveJournal()" style="display: none;">Save</button>
+            <button id="writeButton" onclick="toggleButtons('write')">Write Journal</button>
+        </div>
+        <textarea id="journalInput" placeholder="Write your thoughts here..." style="display: none;"></textarea>
+        <!-- <textarea id="allJournals" placeholder="Write your thoughts here..."></textarea> -->
+        <div class="journal-all" id="allJournals"></div>
+    </div>
+
+
+
+    <script>
+        const API_URL = "https://dailyplannerapi.up.railway.app/api/Journal";
+        const textarea = document.getElementById('journalInput');
+        function toggleButtons(clickedButton) {
+            const saveButton = document.getElementById('saveButton');
+            const writeButton = document.getElementById('writeButton');
+            const journalInput = document.getElementById('journalInput');
+            const allJournals = document.getElementById('allJournals');
+
+            if (clickedButton === 'save') {
+                saveButton.style.display = 'none';
+                journalInput.style.display = 'none';
+                writeButton.style.display = 'inline-block';
+                allJournals.style.display = 'inline-block';
+            } else if (clickedButton === 'write') {
+                writeButton.style.display = 'none';
+                saveButton.style.display = 'inline-block';
+                journalInput.style.display = 'inline-block';
+                allJournals.style.display = 'none';
+            }
+
+
+        }
+
+
+        textarea.addEventListener('keydown', (e) => {
+            const cursorPosition = textarea.selectionStart;
+            const textBeforeCursor = textarea.value.substring(0, cursorPosition);
+            const textAfterCursor = textarea.value.substring(cursorPosition);
+
+            // Handle Tab key for indentation
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                textarea.value = textBeforeCursor + '\t' + textAfterCursor;
+                textarea.selectionStart = textarea.selectionEnd = cursorPosition + 1;
+            }
+
+            // Handle Enter key for new bullet points
+            if (e.key === 'Enter') {
+                const currentLine = textBeforeCursor.split('\n').pop();
+                const bulletMatch = currentLine.match(/^(\s*[-*•])\s?/);
+
+                if (bulletMatch) {
+                    e.preventDefault();
+                    const bullet = bulletMatch[1];
+                    textarea.value =
+                        textBeforeCursor + '\n' + bullet + ' ' + textAfterCursor;
+                    textarea.selectionStart = textarea.selectionEnd =
+                        cursorPosition + bullet.length + 2;
+                }
+            }
+        });
+
+        async function saveJournal() {
+            const journalInput = document.getElementById('journalInput');
+            const content = journalInput.value.trim();
+
+            if (!content) {
+                alert("Please write something before saving!");
+                return;
+            }
+
+            // DTO đầu vào
+            const dto = { content };
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dto)
+                });
+
+                if (response.ok) {
+                    journalInput.value = ""; // Clear input after saving
+                    toggleButtons('save');
+                    fetchJournals();  // Hide Save button and show Write Journal button
+                } else {
+                    const errorData = await response.json();
+                    console.error("Error response:", errorData);
+                    alert("Failed to save journal. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error saving journal:", error);
+                alert("An error occurred while saving the journal.");
+            }
+
+
+        }
+
+        // Lấy tất cả nhật ký
+        async function fetchJournals() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (response.ok) {
+                    const journals = await response.json();
+                    displayJournals(journals);
+                } else {
+                    alert("Failed to fetch journals. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error fetching journals:", error);
+                alert("An error occurred while fetching journals.");
+            }
+        }
+
+        // Hiển thị tất cả nhật ký lên giao diện
+        function displayJournals(journals) {
+            const allJournalsDiv = document.getElementById('allJournals');
+
+            if (!journals || journals.length === 0) {
+                allJournalsDiv.innerHTML = "<p>No journals found.</p>";
+                return;
+            }
+            allJournalsDiv.innerHTML = journals
+                .map(journal => `
+                        <div class="card">
+                            <h3>Journal ngày: ${convertUTCToLocal(journal.date)}</h3>
+                            <p>${journal.content}</p>
+                        </div>
+                    `)
+                .join("");
+
+            // allJournalsDiv.innerHTML = journals
+            //     .map(journal => `Journal ngày: ${journal.date} \r\n ${journal.content}\r\n\r\n`)
+            //     .join("");
+        }
+
+        function convertUTCToLocal(utcDateString) {
+            const date = new Date(utcDateString); // Tạo đối tượng Date từ chuỗi UTC
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString(); // Chuyển sang định dạng của máy khách
+        }
+
+        // Lấy nhật ký khi tải trang
+        document.addEventListener("DOMContentLoaded", fetchJournals);
+    </script>
+</body>
+
+</html>
